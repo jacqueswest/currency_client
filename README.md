@@ -12,7 +12,7 @@
     3. Login with the created credentials
     4. Navigate to the dashboard
     5. Copy the API Access Key
-    6. From the root of this repo open the [.env] in an editor
+    6. From the root of this repo open the [.env] file in an editor
     7. Replace the text "PASTE ACCESS KEY HERE" with the gnenerate access key
     8. Save and close the file
     
