@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  currency-client-tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: pytest:local
+    volumes:
+      - ../currency_client:/currency_client
+      - ../currency_client/reports:/currency_client/reports
+      - ../currency_client/logs:/currency_client/logs
+    working_dir: /currency_client
+    ports:
+      - "6901:5901"
+    env_file:
+      - .env
