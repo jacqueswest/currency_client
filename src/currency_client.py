@@ -21,26 +21,28 @@ class CurrencyClient(Config):
             access_key=self.access_key
         )
 
-    def __logging(self, val):
+    def __logging(self, val, endpoint):
         if val.status_code == 200:
-            logger.info(f"{self.base_url} - GET - {val.status_code} ... {val.json().get('rates')}")
+            logger.info(f"{self.base_url}/{endpoint} - GET - {val.status_code} ... {val.json().get('rates')}")
         else:
-            logger.error(f"{self.base_url} - GET - {val.status_code}")
+            logger.error(f"{self.base_url}/{endpoint} - GET - {val.status_code}")
 
     @cache(ttl=3)
     def get_currency(self, currency_code):
-        url = self.__get_url(endpoint="latest")
+        endpoint = "latest"
+        url = self.__get_url(endpoint=endpoint)
         r = requests.get(url, params=self.__get_params(currency_code=currency_code))
 
-        self.__logging(val=r)
+        self.__logging(val=r, endpoint=endpoint)
         return r.json()
 
     @cache(ttl=3)
     def get_historical_currency(self, currency_code, date_stamp):
-        url = self.__get_url(endpoint=date_stamp)
+        endpoint = date_stamp
+        url = self.__get_url(endpoint=endpoint)
         r = requests.get(url, params=self.__get_params(currency_code=currency_code))
 
-        self.__logging(val=r)
+        self.__logging(val=r, endpoint=endpoint)
         return r.json()
 
     @staticmethod
